@@ -1,90 +1,17 @@
 import os
 
 import unittest
-import urlparse
 
-from selenium.webdriver import ActionChains, DesiredCapabilities, Remote
-from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver import DesiredCapabilities, Remote
+from page import *
 
+class Test(unittest.TestCase):
 
-class Page(object):
-    BASE_URL = 'https://target.mail.ru'
-    PATH = ''
+    USERNAME = 'tech-testing-ha2-19@bk.ru'
+    PASSWORD = os.environ['TTHA2PASSWORD']
+    DOMAIN = '@bk.ru'
+    IMAGE = os.path.abspath('img.jpg')
 
-    def __init__(self, driver):
-        self.driver = driver
-
-    def open(self):
-        url = urlparse.urljoin(self.BASE_URL, self.PATH)
-        self.driver.get(url)
-
-
-class AuthPage(Page):
-    PATH = '/login'
-
-    @property
-    def form(self):
-        return AuthForm(self.driver)
-
-
-class CreatePage(Page):
-    PATH = '/ads/create'
-
-    @property
-    def top_menu(self):
-        return TopMenu(self.driver)
-
-    @property
-    def slider(self):
-        return Slider(self.driver)
-
-
-class Component(object):
-    def __init__(self, driver):
-        self.driver = driver
-
-
-class AuthForm(Component):
-    LOGIN = '#id_Login'
-    PASSWORD = '#id_Password'
-    DOMAIN = '#id_Domain'
-    SUBMIT = '#gogogo>input'
-
-    def set_login(self, login):
-        self.driver.find_element_by_css_selector(self.LOGIN).send_keys(login)
-
-    def set_password(self, pwd):
-        self.driver.find_element_by_css_selector(self.PASSWORD).send_keys(pwd)
-
-    def set_domain(self, domain):
-        select = self.driver.find_element_by_css_selector(self.DOMAIN)
-        Select(select).select_by_visible_text(domain)
-
-    def submit(self):
-        self.driver.find_element_by_css_selector(self.SUBMIT).click()
-
-
-class TopMenu(Component):
-    EMAIL = '#PH_user-email'
-
-    def get_email(self):
-        return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_css_selector(self.EMAIL).text
-        )
-
-
-class Slider(Component):
-    SLIDER = '.price-slider__begunok'
-
-    def move(self, offset):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_css_selector(self.SLIDER)
-        )
-        ac = ActionChains(self.driver)
-        ac.click_and_hold(element).move_by_offset(offset, 0).perform()
-
-
-class ExampleTest(unittest.TestCase):
     def setUp(self):
         browser = os.environ.get('TTHA2BROWSER', 'CHROME')
 
@@ -92,29 +19,50 @@ class ExampleTest(unittest.TestCase):
             command_executor='http://127.0.0.1:4444/wd/hub',
             desired_capabilities=getattr(DesiredCapabilities, browser).copy()
         )
-
-    def tearDown(self):
-        self.driver.quit()
-
-    def test(self):
-        USERNAME = 'tech-testing-ha2-19@bk.ru'
-        PASSWORD = os.environ['TTHA2PASSWORD']
-        DOMAIN = '@bk.ru'
-
         auth_page = AuthPage(self.driver)
         auth_page.open()
 
         auth_form = auth_page.form
-        auth_form.set_domain(DOMAIN)
-        auth_form.set_login(USERNAME)
-        auth_form.set_password(PASSWORD)
+        auth_form.set_domain(self.DOMAIN)
+        auth_form.set_login(self.USERNAME)
+        auth_form.set_password(self.PASSWORD)
         auth_form.submit()
 
+    def tearDown(self):
+        self.driver.quit()
+
+    # def test_email(self):
+    #     create_page = CreatePage(self.driver)
+    #     create_page.open()
+    #     email = create_page.top_menu.get_email()
+    #
+    #     self.assertEqual(self.USERNAME, email)
+
+    def test_create_ad(self):
         create_page = CreatePage(self.driver)
         create_page.open()
-        email = create_page.top_menu.get_email()
 
-        self.assertEqual(USERNAME, email)
+        create_page.text.set_head('a new big ad')
+        create_page.text.set_text('there is a big text')
+        create_page.text.set_link('www.target.mail.ru')
+        create_page.text.set_image(self.IMAGE)
+
+        create_page.triangle.click_interests()
+        create_page.checkbox.check_avto()
+        create_page.triangle.click_income()
+        create_page.checkbox.check_income_high()
+        create_page.checkbox.check_income_medium()
+
+        create_page.ads.click_ads()
+        create_page.edit.click_edit()
+
+        self.assertEquals(True, create_page.checkbox.avto_is_selected())
+        self.assertEquals(True, create_page.checkbox.income_high_is_selected())
+        self.assertEquals(True, create_page.checkbox.income_medium_is_selected())
+
+        create_page = EditPage(self.driver)
+        create_page.open()
+        create_page.edit.click_delete()
 
         # ## And some examples
         # create_page.slider.move(100)
