@@ -54,9 +54,14 @@ class CreatePage(Page):
     def edit(self):
         return Edit(self.driver)
 
+    @property
+    def place(self):
+        return Place(self.driver)
+
 class EditPage(Page):
     PATH = 'ads/campaigns'
 
     @property
     def edit(self):
         return Edit(self.driver)
+

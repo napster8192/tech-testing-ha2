@@ -62,74 +62,80 @@ class Edit(Component):
         ).click()
 
 class Triangle(Component):
-    INCOME = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[7]/div/div[2]/ul/li[29]/div/div[2]/span'
-    INTERESTS = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[7]/div/div[2]/ul/li[21]/div/div[2]/span'
+    INCOME = 'body > div.target-page > div.target-page__content.target-content > div > div.create-page__center-part-wrapper > div > div.create-page__body > div.create-page__settings > div > div:nth-child(2) > ul > li:nth-child(29) > div > div.campaign-setting__wrapper.campaign-setting__wrapper_income_group.campaign-setting__wrapper_listOptional > span'
+    INTERESTS = 'body > div.target-page > div.target-page__content.target-content > div > div.create-page__center-part-wrapper > div > div.create-page__body > div.create-page__settings > div > div:nth-child(2) > ul > li:nth-child(21) > div > div.campaign-setting__wrapper.campaign-setting__wrapper_interests.campaign-setting__wrapper_tree > span'
 
     def click_income(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.INCOME)
+            lambda d: d.find_element_by_css_selector(self.INCOME)
         ).click()
 
     def click_interests(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.INTERESTS)
+            lambda d: d.find_element_by_css_selector(self.INTERESTS)
         ).click()
 
 class Checkbox(Component):
-    AVTO = '//*[@id="interests1"]/label'
-    INCOME_HIGH = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[7]/div/div[2]/ul/li[29]/div/div[2]/div/div/ul/li[1]/label'
-    INCOME_MEDUIM = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[7]/div/div[2]/ul/li[29]/div/div[2]/div/div/ul/li[2]/label'
+    AVTO = '#interests1 > input'
+    INCOME_HIGH = '#income_group-9288'
+    INCOME_MEDUIM = '#income_group-9287'
+    INCOME_LOW = '#income_group-9286'
 
     def check_avto(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.AVTO)
+            lambda d: d.find_element_by_css_selector(self.AVTO)
         ).click()
 
     def check_income_high(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.INCOME_HIGH)
+            lambda d: d.find_element_by_css_selector(self.INCOME_HIGH)
         ).click()
 
     def check_income_medium(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.INCOME_MEDUIM)
+            lambda d: d.find_element_by_css_selector(self.INCOME_MEDUIM)
         ).click()
 
     def avto_is_selected(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.AVTO)
+            lambda d: d.find_element_by_css_selector(self.AVTO)
         ).is_selected()
 
     def income_high_is_selected(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.INCOME_HIGH)
+            lambda d: d.find_element_by_css_selector(self.INCOME_HIGH)
         ).is_selected()
 
     def income_medium_is_selected(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.INCOME_MEDUIM)
+            lambda d: d.find_element_by_css_selector(self.INCOME_MEDUIM)
+        ).is_selected()
+
+    def income_low_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.INCOME_LOW)
         ).is_selected()
 
 class Text(Component):
-    HEAD = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[3]/div/div[1]/ul/li[2]/input'
-    TEXT = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[3]/div/div[1]/ul/li[3]/textarea'
-    LINK = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[3]/div/div[1]/ul/li[4]/span[2]/input'
+    HEAD = 'input[data-name="title"]'
+    TEXT = 'textarea[data-name="text"]'
+    LINK = 'body > div.target-page > div.target-page__content.target-content > div > div.create-page__center-part-wrapper > div > div.create-page__body > div.create-page__banner-forms > div > div.banner-form__body > ul > li:nth-child(4) > span.banner-form__input-wrapper > input'
     IMAGE = 'input[data-name="image"]'
-    CREATE = '/html/body/div[1]/div[5]/div/div[2]/div/div[1]/div[3]/div/div[3]/input'
+    CREATE = '.banner-form__save-button'
 
     def set_head(self, head):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.HEAD)
+            lambda d: d.find_element_by_css_selector(self.HEAD)
         ).send_keys(head)
 
     def set_text(self, text):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.TEXT)
+            lambda d: d.find_element_by_css_selector(self.TEXT)
         ).send_keys(text)
 
     def set_link(self, link):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.LINK)
+            lambda d: d.find_element_by_css_selector(self.LINK)
         ).send_keys(link)
 
     def set_image(self, address):
@@ -139,13 +145,21 @@ class Text(Component):
 
     def click_add_ads(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.CREATE)
+            lambda d: d.find_element_by_css_selector(self.CREATE)
         ).click()
 
 class Ad(Component):
-    AD = '/html/body/div[1]/div[5]/div/div[2]/div/div[2]/div[2]/span'
+    AD = '/html/body/div[1]/div[5]/div/div[2]/div/div[2]/div[2]/span/span'
 
     def click_ads(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
             lambda d: d.find_element_by_xpath(self.AD)
         ).click()
+
+class Place(Component):
+    PLACE = '/html/body/div[1]/div[5]/div/div[1]/div/div/div[2]/div[2]/div/label'
+
+    def get_place(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_xpath(self.PLACE).text
+        )

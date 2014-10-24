@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 
 import unittest
@@ -11,6 +13,9 @@ class Test(unittest.TestCase):
     PASSWORD = os.environ['TTHA2PASSWORD']
     DOMAIN = '@bk.ru'
     IMAGE = os.path.abspath('img.jpg')
+
+    HEAD = 'a new big ad'
+    TEXT = 'there is a big text'
 
     def setUp(self):
         browser = os.environ.get('TTHA2BROWSER', 'CHROME')
@@ -31,19 +36,19 @@ class Test(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    # def test_email(self):
-    #     create_page = CreatePage(self.driver)
-    #     create_page.open()
-    #     email = create_page.top_menu.get_email()
-    #
-    #     self.assertEqual(self.USERNAME, email)
+    def test_email(self):
+        create_page = CreatePage(self.driver)
+        create_page.open()
+        email = create_page.top_menu.get_email()
+
+        self.assertEqual(self.USERNAME, email)
 
     def test_create_ad(self):
         create_page = CreatePage(self.driver)
         create_page.open()
 
-        create_page.text.set_head('a new big ad')
-        create_page.text.set_text('there is a big text')
+        create_page.text.set_head(self.HEAD)
+        create_page.text.set_text(self.TEXT)
         create_page.text.set_link('www.target.mail.ru')
         create_page.text.set_image(self.IMAGE)
 
@@ -56,19 +61,8 @@ class Test(unittest.TestCase):
         create_page.ads.click_ads()
         create_page.edit.click_edit()
 
+        self.assertEquals(u'Социальные сети и сервисы (Одноклассники.Ру, МойМир@Mail.Ru, Почта@Mail.ru и др.)', create_page.place.get_place())
         self.assertEquals(True, create_page.checkbox.avto_is_selected())
         self.assertEquals(True, create_page.checkbox.income_high_is_selected())
         self.assertEquals(True, create_page.checkbox.income_medium_is_selected())
-
-        create_page = EditPage(self.driver)
-        create_page.open()
-        create_page.edit.click_delete()
-
-        # ## And some examples
-        # create_page.slider.move(100)
-        # FILE_PATH = '/Users/bayandin/repos/tech-testing-selenium-demo/img.jpg'
-        # element = WebDriverWait(self.driver, 30, 0.1).until(
-        #     lambda d: d.find_element_by_css_selector('.banner-form__img-file')
-        # )
-        #
-        # element.send_keys(FILE_PATH)
+        self.assertEquals(False, create_page.checkbox.income_low_is_selected())
