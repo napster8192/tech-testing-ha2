@@ -48,22 +48,22 @@ class Slider(Component):
         ac.click_and_hold(element).move_by_offset(offset, 0).perform()
 
 class Edit(Component):
-    EDIT = '/html/body/div[1]/div[5]/div[1]/div[2]/div/ul/li[1]/div[2]/div[1]/div[3]/div/ul/li[3]/a'
-    DELETE = '/html/body/div[1]/div[5]/div[1]/div[2]/div/ul/li[1]/div[2]/div[1]/div[3]/div/ul/li[4]/span'
+    EDIT = '.campaign-row .control__link_edit'
+    DELETE = '.control__preset_delete'
 
     def click_edit(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.EDIT)
+            lambda d: d.find_element_by_css_selector(self.EDIT)
         ).click()
 
     def click_delete(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.DELETE)
+            lambda d: d.find_element_by_css_selector(self.DELETE)
         ).click()
 
 class Triangle(Component):
-    INCOME = 'body > div.target-page > div.target-page__content.target-content > div > div.create-page__center-part-wrapper > div > div.create-page__body > div.create-page__settings > div > div:nth-child(2) > ul > li:nth-child(29) > div > div.campaign-setting__wrapper.campaign-setting__wrapper_income_group.campaign-setting__wrapper_listOptional > span'
-    INTERESTS = 'body > div.target-page > div.target-page__content.target-content > div > div.create-page__center-part-wrapper > div > div.create-page__body > div.create-page__settings > div > div:nth-child(2) > ul > li:nth-child(21) > div > div.campaign-setting__wrapper.campaign-setting__wrapper_interests.campaign-setting__wrapper_tree > span'
+    INCOME = '[data-name="income_group"] > .campaign-setting__value.js-setting-value'
+    INTERESTS = '[data-node-id="interests"]'
 
     def click_income(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
@@ -119,7 +119,7 @@ class Checkbox(Component):
 class Text(Component):
     HEAD = 'input[data-name="title"]'
     TEXT = 'textarea[data-name="text"]'
-    LINK = 'body > div.target-page > div.target-page__content.target-content > div > div.create-page__center-part-wrapper > div > div.create-page__body > div.create-page__banner-forms > div > div.banner-form__body > ul > li:nth-child(4) > span.banner-form__input-wrapper > input'
+    LINK = 'li.banner-form__row:nth-child(4) > span:nth-child(2) > input:nth-child(1)'
     IMAGE = 'input[data-name="image"]'
     CREATE = '.banner-form__save-button'
 
@@ -149,17 +149,17 @@ class Text(Component):
         ).click()
 
 class Ad(Component):
-    AD = '/html/body/div[1]/div[5]/div/div[2]/div/div[2]/div[2]/span/span'
+    AD = '.main-button-new'
 
     def click_ads(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.AD)
+            lambda d: d.find_element_by_css_selector(self.AD)
         ).click()
 
 class Place(Component):
-    PLACE = '/html/body/div[1]/div[5]/div/div[1]/div/div/div[2]/div[2]/div/label'
+    PLACE = '.base-setting__pads-item__label'
 
     def get_place(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_xpath(self.PLACE).text
+            lambda d: d.find_element_by_css_selector(self.PLACE).text
         )

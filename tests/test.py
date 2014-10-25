@@ -16,6 +16,7 @@ class Test(unittest.TestCase):
 
     HEAD = 'a new big ad'
     TEXT = 'there is a big text'
+    LINK = 'www.target.mail.ru'
 
     def setUp(self):
         browser = os.environ.get('TTHA2BROWSER', 'CHROME')
@@ -49,7 +50,7 @@ class Test(unittest.TestCase):
 
         create_page.text.set_head(self.HEAD)
         create_page.text.set_text(self.TEXT)
-        create_page.text.set_link('www.target.mail.ru')
+        create_page.text.set_link(self.LINK)
         create_page.text.set_image(self.IMAGE)
 
         create_page.triangle.click_interests()
