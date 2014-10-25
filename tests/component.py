@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 __author__ = 'nap'
 
 from selenium.webdriver import ActionChains
@@ -64,6 +66,7 @@ class Edit(Component):
 class Triangle(Component):
     INCOME = '[data-name="income_group"] > .campaign-setting__value.js-setting-value'
     INTERESTS = '[data-node-id="interests"]'
+    AVTO = u'[data-node-id="Авто"]'
 
     def click_income(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
@@ -75,15 +78,80 @@ class Triangle(Component):
             lambda d: d.find_element_by_css_selector(self.INTERESTS)
         ).click()
 
+    def click_avto(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO)
+        ).click()
+
 class Checkbox(Component):
-    AVTO = '#interests1 > input'
+    AVTO_1 = '#interests1 > input'
+    AVTO_2 = '#interests2 > input'
+    AVTO_3 = '#interests3 > input'
+    AVTO_4 = '#interests4 > input'
+    AVTO_5 = '#interests5 > input'
+    AVTO_6 = '#interests6 > input'
+    AVTO_7 = '#interests7 > input'
+    AVTO_8 = '#interests8 > input'
+    AVTO_9 = '#interests9 > input'
+    AVTO_10 = '#interests10 > input'
+    AVTO_11 = '#interests11 > input'
     INCOME_HIGH = '#income_group-9288'
     INCOME_MEDUIM = '#income_group-9287'
     INCOME_LOW = '#income_group-9286'
 
-    def check_avto(self):
+    def check_avto_1(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_css_selector(self.AVTO)
+            lambda d: d.find_element_by_css_selector(self.AVTO_1)
+        ).click()
+
+    def check_avto_2(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_2)
+        ).click()
+
+    def check_avto_3(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_3)
+        ).click()
+
+    def check_avto_4(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_4)
+        ).click()
+
+    def check_avto_5(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_5)
+        ).click()
+
+    def check_avto_6(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_6)
+        ).click()
+
+    def check_avto_7(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_7)
+        ).click()
+
+    def check_avto_8(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_8)
+        ).click()
+
+    def check_avto_9(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_9)
+        ).click()
+
+    def check_avto_10(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_10)
+        ).click()
+
+    def check_avto_11(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_11)
         ).click()
 
     def check_income_high(self):
@@ -96,9 +164,64 @@ class Checkbox(Component):
             lambda d: d.find_element_by_css_selector(self.INCOME_MEDUIM)
         ).click()
 
-    def avto_is_selected(self):
+    def check_income_low(self):
         return WebDriverWait(self.driver, 30, 0.1).until(
-            lambda d: d.find_element_by_css_selector(self.AVTO)
+            lambda d: d.find_element_by_css_selector(self.INCOME_LOW)
+        ).click()
+
+    def avto_1_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_1)
+        ).is_selected()
+
+    def avto_2_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_2)
+        ).is_selected()
+
+    def avto_3_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_3)
+        ).is_selected()
+
+    def avto_4_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_4)
+        ).is_selected()
+
+    def avto_5_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_5)
+        ).is_selected()
+
+    def avto_6_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_6)
+        ).is_selected()
+
+    def avto_7_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_7)
+        ).is_selected()
+
+    def avto_8_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_8)
+        ).is_selected()
+
+    def avto_9_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_9)
+        ).is_selected()
+
+    def avto_10_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_10)
+        ).is_selected()
+
+    def avto_11_is_selected(self):
+        return WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_css_selector(self.AVTO_11)
         ).is_selected()
 
     def income_high_is_selected(self):

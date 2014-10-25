@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
 
         self.assertEqual(self.USERNAME, email)
 
-    def test_create_ad(self):
+    def test_case_1(self):
         create_page = CreatePage(self.driver)
         create_page.open()
 
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         create_page.text.set_image(self.IMAGE)
 
         create_page.triangle.click_interests()
-        create_page.checkbox.check_avto()
+        create_page.checkbox.check_avto_1()
         create_page.triangle.click_income()
         create_page.checkbox.check_income_high()
         create_page.checkbox.check_income_medium()
@@ -63,7 +63,42 @@ class Test(unittest.TestCase):
         create_page.edit.click_edit()
 
         self.assertEquals(u'Социальные сети и сервисы (Одноклассники.Ру, МойМир@Mail.Ru, Почта@Mail.ru и др.)', create_page.place.get_place())
-        self.assertEquals(True, create_page.checkbox.avto_is_selected())
+        self.assertEquals(True, create_page.checkbox.avto_1_is_selected())
         self.assertEquals(True, create_page.checkbox.income_high_is_selected())
         self.assertEquals(True, create_page.checkbox.income_medium_is_selected())
         self.assertEquals(False, create_page.checkbox.income_low_is_selected())
+
+    def test_case_2(self):
+        create_page = CreatePage(self.driver)
+        create_page.open()
+
+        create_page.text.set_head(self.HEAD)
+        create_page.text.set_text(self.TEXT)
+        create_page.text.set_link(self.LINK)
+        create_page.text.set_image(self.IMAGE)
+
+        create_page.triangle.click_interests()
+        create_page.triangle.click_avto()
+        create_page.checkbox.check_avto_5()
+        create_page.checkbox.check_avto_6()
+        create_page.triangle.click_income()
+        create_page.checkbox.check_income_low()
+
+        create_page.ads.click_ads()
+        create_page.edit.click_edit()
+
+        self.assertEquals(u'Социальные сети и сервисы (Одноклассники.Ру, МойМир@Mail.Ru, Почта@Mail.ru и др.)', create_page.place.get_place())
+        self.assertEquals(False, create_page.checkbox.avto_1_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_2_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_3_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_4_is_selected())
+        self.assertEquals(True, create_page.checkbox.avto_5_is_selected())
+        self.assertEquals(True, create_page.checkbox.avto_6_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_7_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_8_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_9_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_10_is_selected())
+        self.assertEquals(False, create_page.checkbox.avto_11_is_selected())
+        self.assertEquals(False, create_page.checkbox.income_high_is_selected())
+        self.assertEquals(False, create_page.checkbox.income_medium_is_selected())
+        self.assertEquals(True, create_page.checkbox.income_low_is_selected())
